@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.capgemini.daos.ProductoDAO">
+
+	<resultMap type="com.capgemini.entities.ProductoEntity" id="productoResultMap">
+		<id column="pro_id" property="id" jdbcType="INTEGER"/>
+		<result column="pro_descripcion" property="descripcion" jdbcType="VARCHAR"/>
+		<result column="pro_precio_venta" property="precio" jdbcType="FLOAT"/>
+	</resultMap>
+
+
+	<select id="findAll" resultMap="productoResultMap">
+		SELECT * FROM productos
+	</select>
+	
+	<select id="findProductoById" resultMap="productoResultMap">
+		SELECT * FROM productos WHERE pro_id = #{id}
+	</select>
+	
+	<insert id="addProducto" parameterType="ProductoEntity">
+		INSERT INTO productos (pro_descripcion,pro_precio_venta) 
+		values(#{descripcion},#{precio})
+	</insert>
+	
+	<update id="updateProducto" parameterType="ProductoEntity">
+		UPDATE productos SET 
+			pro_descripcion = #{descripcion},
+			pro_precio_venta = #{precio}
+			WHERE pro_id = #{id}
+	</update>
+	
+	<delete id="deleteProducto">
+		DELETE FROM productos WHERE pro_id = #{id}
+	</delete>
+	
+
+</mapper>
