@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.capgemini.dtos.ClienteDTO;
 import com.capgemini.services.impls.IClienteService;
 
+// Esta clase tiene los métodos que se llamarán para obtener DTO's de la BD o viceversa
+
 @RestController
 @RequestMapping("/cliente")
 public class ClienteController {
@@ -41,7 +43,6 @@ public class ClienteController {
 		} else {
 			respuesta = HttpStatus.BAD_REQUEST;
 		}
-		
 		
 		return new ResponseEntity<>(respuesta);
 	
