@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.capgemini.daos.HabitacionDAO">
+	
+	<resultMap type="com.capgemini.entities.HabitacionEntity" id="habitacionResultMap">
+		<id column="ha_id" property="id" jdbcType="INTEGER"/>
+		<result column="ha_piso" property="piso" jdbcType="INTEGER"/>
+		<result column="ha_numero" property="numero" jdbcType="INTEGER"/>
+		<result column="ha_vista" property="vista" jdbcType="VARCHAR"/>
+		<result column="ha_clase" property="clase" jdbcType="VARCHAR"/>
+		<result column="ha_camas" property="camas" jdbcType="INTEGER"/>
+		<result column="ha_precio" property="precio" jdbcType="FLOAT"/>
+		<result column="ha_personas" property="personas" jdbcType="INTEGER"/>
+		<result column="ha_estado" property="estado" jdbcType="VARCHAR"/>
+		<result column="ha_ho_id" property="idHotel" jdbcType="INTEGER"/>
+	</resultMap>
+	
+	
+	<select id="findAll" resultMap="habitacionResultMap">
+		SELECT * FROM habitaciones
+	</select>
+	
+	<select id="findHabitacionById" resultMap="habitacionResultMap">
+		SELECT * FROM habitaciones WHERE ha_id = #{id}
+	</select>
+	
+	<insert id="addHabitacion" parameterType="HabitacionEntity">
+		INSERT INTO habitaciones (ha_piso,ha_numero,ha_vista,ha_clase,ha_camas,ha_precio,ha_personas,ha_estado,ha_ho_id) 
+		values(#{piso},#{numero},#{vista},#{clase},#{camas},#{precio},#{personas},#{estado},#{idHotel})
+	</insert>
+	
+	<update id="updateHabitacion" parameterType="HabitacionEntity">
+		UPDATE habitaciones SET 
+			ha_piso = #{piso},
+			ha_numero = #{numero},
+			ha_vista = #{vista},
+			ha_clase = #{clase},
+			ha_camas = #{camas},
+			ha_precio = #{precio},
+			ha_personas = #{personas},
+			ha_estado= #{estado},
+			ha_ho_id = #{idHotel}
+			WHERE ha_id = #{id}
+	</update>
+	
+	<delete id="deleteHabitacion">
+		DELETE FROM habitaciones WHERE ha_id = #{id}
+	</delete>
+
+</mapper>

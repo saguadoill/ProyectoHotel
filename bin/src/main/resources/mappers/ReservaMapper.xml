@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.capgemini.daos.ReservaDAO">
+
+	<resultMap type="com.capgemini.entities.ReservaEntity" id="reservaResultMap">
+		<id column="re_id" property="id" jdbcType="INTEGER"/>
+		<result column="re_cli_id" property="idCliente" jdbcType="INTEGER"/>
+		<result column="re_ha_id" property="idHabitacion" jdbcType="INTEGER"/>
+		<result column="re_fecha_reserva" property="fechaReserva" jdbcType="DATE"/>
+		<result column="re_fecha_ini" property="fechaInicio" jdbcType="DATE"/>
+		<result column="re_fecha_fin" property="fechaFin" jdbcType="DATE"/>
+		<result column="re_coste_alojamiento" property="costeAlojamiento" jdbcType="FLOAT"/>
+		<result column="re_estado" property="estado" jdbcType="VARCHAR"/>
+	</resultMap>
+
+	<select id="findAll" resultMap="reservaResultMap">
+		SELECT re_id, re_cli_id, re_ha_id, re_fecha_reserva, re_fecha_ini, re_fecha_fin, re_coste_alojamiento, re_estado
+		FROM reservas
+	</select>
+	
+	<select id="findById" resultMap="reservaResultMap">
+		SELECT re_id, re_cli_id, re_ha_id, re_fecha_reserva, re_fecha_ini, re_fecha_fin, re_coste_alojamiento, re_estado 
+		FROM reservas 
+		WHERE re_id = #{id}
+	</select>
+	
+	<insert id="addReserva" parameterType="ReservaEntity">
+		INSERT INTO reservas (re_cli_id, re_ha_id, re_fecha_reserva, re_fecha_ini, re_fecha_fin, re_coste_alojamiento, re_estado) 
+		values(#{cli_id},#{ha_id},#{fecha_reserva},#{fecha_ini},#{fecha_fin},#{coste_alojamiento},#{estado})
+	</insert>
+	
+	<update id="updateReserva" parameterType="ReservaEntity">
+		UPDATE reservas SET 
+			re_cli_id = #{cli_id},
+			re_ha_id = #{ha_id},
+			re_fecha_reserva = #{fecha_reserva},
+			re_fecha_ini = #{fecha_ini},
+			re_fecha_fin = #{fecha_fin},
+			re_coste_alojamiento = #{coste_alojamiento},
+			re_estado = #{estado},
+			WHERE re_id = #{id}
+	</update>
+	
+	<delete id="deleteReserva">
+		DELETE FROM reserva WHERE re_id = #{id}
+	</delete>
+	
+</mapper>

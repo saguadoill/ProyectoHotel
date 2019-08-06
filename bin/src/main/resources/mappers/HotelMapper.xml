@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.capgemini.daos.HotelDAO">
+
+	<resultMap type="com.capgemini.entities.HotelEntity" id="hotelResultMap">
+		<id column="ho_id" property="id" jdbcType="INTEGER"/>
+		<result column="ho_nombre" property="nombre" jdbcType="VARCHAR"/>
+		<result column="ho_categoria" property="categoria" jdbcType="VARCHAR"/>
+		<result column="ho_zona" property="zona" jdbcType="VARCHAR"/>
+		<result column="ho_direccion" property="direccion" jdbcType="VARCHAR"/>
+	</resultMap>
+
+	<select id="findAll" resultMap="hotelResultMap">
+		SELECT * FROM hoteles
+	</select>
+	
+	<select id="findById" resultMap="hotelResultMap">
+		SELECT * FROM hoteles WHERE ho_id = #{id}
+	</select>
+	
+	<insert id="addHotel" parameterType="HotelEntity">
+		INSERT INTO hoteles (ho_nombre,ho_categoria,ho_zona,ho_direccion) 
+		values(#{nombre},#{categoria},#{zona},#{direccion})
+	</insert>
+	
+	<update id="updateHotel" parameterType="HotelEntity">
+		UPDATE hoteles SET 
+			ho_nombre = #{nombre},
+			ho_categoria = #{categoria},
+			ho_zona = #{zona},
+			ho_direccion = #{direccion}
+			WHERE ho_id = #{id}
+	</update>
+	
+	<delete id="deleteHotel">
+		DELETE FROM hoteles WHERE ho_id = #{id}
+	</delete>
+
+</mapper>
+
+
