@@ -49,7 +49,6 @@ public class HabitacionController {
 		return new ResponseEntity<HttpStatus>(respuesta);
 	}
 	
-	//TODO: decidir si es mejor enviar el id por formulario o url
 	@RequestMapping(value  = "/{id}",method = RequestMethod.DELETE)
 	public ResponseEntity<HttpStatus> deleteHabitacion(@PathVariable(name = "id") int id){
 	HttpStatus respuesta = null;

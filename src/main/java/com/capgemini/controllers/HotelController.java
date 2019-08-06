@@ -14,10 +14,10 @@ import org.springframework.web.bind.annotation.RestController;
 import com.capgemini.dtos.HotelDTO;
 import com.capgemini.services.impls.IHotelService;
 
-import lombok.extern.slf4j.Slf4j;
+//import lombok.extern.slf4j.Slf4j;
 
 @RestController
-@Slf4j
+//@Slf4j
 @RequestMapping("/hotel")
 public class HotelController {
 	
@@ -27,10 +27,6 @@ public class HotelController {
 
 	@RequestMapping(value  = "/lista", method = RequestMethod.GET)
 	public ResponseEntity<List<HotelDTO>> listaHoteles(){
-		log.info("INFO logger");
-		log.debug("DEBUG logger");
-		log.error("ERROR logger");
-		log.warn("WARN error");
 		return new ResponseEntity<>(iHoteleService.findAll(),HttpStatus.OK);
 	}
 	
