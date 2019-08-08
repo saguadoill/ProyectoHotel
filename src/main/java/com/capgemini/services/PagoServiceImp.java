@@ -30,7 +30,7 @@ public class PagoServiceImp implements IPagoService{
 				PagoDTO pagoDTO = new PagoDTO();
 				
 				pagoDTO.setId(pagoEntity.getId());
-				pagoDTO.setRe_id(pagoEntity.getRe_id());
+				pagoDTO.setIdReserva(pagoEntity.getIdReserva());
 				pagoDTO.setTotal(pagoEntity.getTotal());
 				pagoDTO.setFecha_pago(pagoEntity.getFecha_pago());
 				
@@ -47,7 +47,7 @@ public class PagoServiceImp implements IPagoService{
 			PagoEntity pagoEntity = pagoDao.findById(id);
 			
 			pagoDTO.setId(pagoEntity.getId());
-			pagoDTO.setRe_id(pagoEntity.getRe_id());
+			pagoDTO.setIdReserva(pagoEntity.getIdReserva());
 			pagoDTO.setTotal(pagoEntity.getTotal());
 			pagoDTO.setFecha_pago(pagoEntity.getFecha_pago());
 			
@@ -63,7 +63,7 @@ public class PagoServiceImp implements IPagoService{
 			PagoEntity pagoEntity = new PagoEntity();
 			
 			pagoEntity.setId(pagoDTO.getId());
-			pagoEntity.setRe_id(pagoDTO.getRe_id());
+			pagoEntity.setIdReserva(pagoDTO.getIdReserva());
 			pagoEntity.setTotal(pagoDTO.getTotal());
 			pagoEntity.setFecha_pago(pagoDTO.getFecha_pago());
 			
@@ -81,7 +81,7 @@ public class PagoServiceImp implements IPagoService{
 			
 			PagoEntity pagoEntity = new PagoEntity();
 			
-			pagoEntity.setRe_id(pagoDTO.getRe_id());
+			pagoEntity.setIdReserva(pagoDTO.getIdReserva());
 			pagoEntity.setTotal(pagoDTO.getTotal());
 			pagoEntity.setFecha_pago(pagoDTO.getFecha_pago());
 			

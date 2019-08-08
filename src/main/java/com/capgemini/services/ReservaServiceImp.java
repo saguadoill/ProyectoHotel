@@ -77,7 +77,7 @@ public class ReservaServiceImp implements IReservaService {
 			boolean addOk = false;
 			
 			ReservaEntity reservaEntity = new ReservaEntity();
-			reservaEntity.setId(reservaDTO.getClienteDTO().getCli_id());
+			reservaEntity.setIdCliente(reservaDTO.getClienteDTO().getId());
 			reservaEntity.setIdHabitacion(reservaDTO.getHabitacionDTO().getId());
 			reservaEntity.setFechaReserva(reservaDTO.getFechaReserva());
 			reservaEntity.setFechaInicio(reservaDTO.getFechaInicio());
@@ -97,7 +97,7 @@ public class ReservaServiceImp implements IReservaService {
 			boolean updateOk = false;
 			
 			ReservaEntity reservaEntity = new ReservaEntity();
-			reservaEntity.setId(reservaDTO.getClienteDTO().getCli_id());
+			reservaEntity.setIdCliente(reservaDTO.getClienteDTO().getId());
 			reservaEntity.setIdHabitacion(reservaDTO.getHabitacionDTO().getId());
 			reservaEntity.setFechaReserva(reservaDTO.getFechaReserva());
 			reservaEntity.setFechaInicio(reservaDTO.getFechaInicio());

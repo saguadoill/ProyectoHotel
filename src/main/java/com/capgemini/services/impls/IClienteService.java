@@ -16,4 +16,6 @@ public interface IClienteService {
 	boolean updateCliente(ClienteDTO clienteDTO);
 	
 	boolean deleteCliente(int id);
+	
+	ClienteDTO findCliente(String email, String password);
 }

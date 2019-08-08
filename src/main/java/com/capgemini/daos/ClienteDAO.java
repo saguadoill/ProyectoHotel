@@ -11,11 +11,16 @@ public interface ClienteDAO {
 	
 	ClienteEntity findById(int id);
 	
+	ClienteEntity findCliente(String email);
+	
 	boolean addCliente(ClienteEntity cliente);
 	
 	boolean updateCliente(ClienteEntity cliente);
 	
 	boolean deleteCliente(int id);
+	
+	
+	
 		
 }
 

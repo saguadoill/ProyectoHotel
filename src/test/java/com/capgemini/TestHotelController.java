@@ -98,7 +98,7 @@ public class TestHotelController {
 		
 		List<HabitacionDTO> habitaciones = new ArrayList<HabitacionDTO>();
 		HotelDTO hotelPrueba = new HotelDTO();
-		hotelPrueba.setId(9);
+		hotelPrueba.setId(15);
 		hotelPrueba.setNombre("El plateadoUpdate");
 		hotelPrueba.setCategoria("3 estrellas");
 		hotelPrueba.setDireccion("Desierto de dios");
@@ -120,7 +120,7 @@ public class TestHotelController {
 	@Test
 	public void deleteHotelAPI() throws Exception
 	{
-	  mvc.perform( MockMvcRequestBuilders.delete("/hotel/{id}", 11) )
+	  mvc.perform( MockMvcRequestBuilders.delete("/hotel/{id}", 15) )
 	        .andExpect(status().isOk());
 	}
 	
