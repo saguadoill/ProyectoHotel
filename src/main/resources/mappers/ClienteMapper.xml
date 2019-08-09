@@ -4,32 +4,39 @@
 <mapper namespace="com.capgemini.daos.ClienteDAO">
 
 	<resultMap type="com.capgemini.entities.ClienteEntity" id="clienteResultMap">
-		<id column="cli_id" property="cli_id" jdbcType="INTEGER"/>
-		<result column="cli_dni" property="cli_dni" jdbcType="VARCHAR"/>
-		<result column="cli_nombre" property="cli_nombre" jdbcType="VARCHAR"/>
-		<result column="cli_apellido" property="cli_apellido" jdbcType="VARCHAR"/>
-		<result column="cli_email" property="cli_email" jdbcType="VARCHAR"/>
-		<result column="cli_direccion" property="cli_direccion" jdbcType="VARCHAR"/>
-		<result column="cli_codigopostal" property="cli_codigopostal" jdbcType="VARCHAR"/>
-		<result column="cli_ciudad" property="cli_ciudad" jdbcType="VARCHAR"/>
-		<result column="cli_password" property="cli_password" jdbcType="VARCHAR"/>
-		<result column="cli_puntos_dto" property="cli_puntos_dto" jdbcType="INTEGER"/>
+		<id column="cli_id" property="id" jdbcType="INTEGER"/>
+		<result column="cli_dni" property="dni" jdbcType="VARCHAR"/>
+		<result column="cli_nombre" property="nombre" jdbcType="VARCHAR"/>
+		<result column="cli_apellido" property="apellido" jdbcType="VARCHAR"/>
+		<result column="cli_email" property="email" jdbcType="VARCHAR"/>
+		<result column="cli_direccion" property="direccion" jdbcType="VARCHAR"/>
+		<result column="cli_codigopostal" property="codigoPostal" jdbcType="VARCHAR"/>
+		<result column="cli_ciudad" property="ciudad" jdbcType="VARCHAR"/>
+		<result column="cli_password" property="password" jdbcType="VARCHAR"/>
+		<result column="cli_puntos_dto" property="puntosDescuento" jdbcType="INTEGER"/>
+		<result column="cli_role" property="role" jdbcType="VARCHAR"/>
 	</resultMap>
 
 	<select id="findAll" resultMap="clienteResultMap">
-		SELECT cli_id, cli_dni, cli_nombre, cli_apellido, cli_email, cli_direccion, cli_codigopostal, cli_ciudad, cli_puntos_dto
+		SELECT cli_id, cli_dni, cli_nombre, cli_apellido, cli_email, cli_direccion, cli_codigopostal, cli_ciudad, cli_puntos_dto, cli_role
 		FROM clientes
 	</select>
 	
 	<select id="findById" resultMap="clienteResultMap">
-		SELECT cli_id, cli_dni, cli_nombre, cli_apellido, cli_email, cli_direccion, cli_codigopostal, cli_ciudad, cli_puntos_dto 
+		SELECT cli_id, cli_dni, cli_nombre, cli_apellido, cli_email, cli_direccion, cli_codigopostal, cli_ciudad, cli_puntos_dto, cli_role 
 		FROM clientes 
 		WHERE cli_id = #{id}
 	</select>
 	
+	<select id="findByEmail" resultMap="clienteResultMap">
+		SELECT cli_id, cli_dni, cli_nombre,cli_password, cli_apellido, cli_email, cli_direccion, cli_codigopostal, cli_ciudad, cli_puntos_dto, cli_role
+		FROM clientes 
+		WHERE cli_email = #{email}
+	</select>
+	
 	<insert id="addCliente" parameterType="ClienteEntity">
-		INSERT INTO clientes (cli_dni, cli_nombre, cli_apellido, cli_email, cli_direccion, cli_codigopostal, cli_ciudad, cli_password, cli_puntos_dto) 
-		values(#{dni},#{nombre},#{apellido},#{email},#{direccion},#{codigopostal},#{ciudad},#{puntos_dto},#{password})
+		INSERT INTO clientes (cli_dni, cli_nombre, cli_apellido, cli_email, cli_direccion, cli_codigopostal, cli_ciudad, cli_password, cli_puntos_dto, cli_role) 
+		values(#{dni},#{nombre},#{apellido},#{email},#{direccion},#{codigoPostal},#{ciudad},#{puntosDescuento},#{password},#{role})
 	</insert>
 	
 	<update id="updateCliente" parameterType="ClienteEntity">
@@ -39,9 +46,10 @@
 			cli_apellido = #{apellido},
 			cli_email = #{email},
 			cli_direccion = #{direccion},
-			cli_codigopostal = #{codigopostal},
+			cli_codigopostal = #{codigoPostal},
 			cli_ciudad = #{ciudad},
-			cli_puntos_dto = #{puntos_dto}
+			cli_puntos_dto = #{puntosDescuento},
+			cli_role =  #{role}
 			WHERE cli_id = #{id}
 	</update>
 	

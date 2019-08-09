@@ -15,27 +15,39 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.capgemini.dtos.HabitacionDTO;
-import com.capgemini.dtos.HotelDTO;
-import com.capgemini.services.impls.IHotelService;
+import com.capgemini.dtos.ConsumoDTO;
+import com.capgemini.dtos.ProductoDTO;
+import com.capgemini.dtos.ReservaDTO;
+import com.capgemini.services.impls.IConsumoService;
+import com.capgemini.services.impls.IProductoService;
+import com.capgemini.services.impls.IReservaService;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
+import lombok.extern.slf4j.Slf4j;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = ProyectoHotelesMvcApplication.class)
 @AutoConfigureMockMvc
-public class TestHabitacionController {
+@Slf4j
+public class TestConsumoController {
 	
 	@Autowired
 	private MockMvc mvc;
 	
 	@Autowired
-	private IHotelService hotelService;
+	private IReservaService reservaService;
+	
+	@Autowired
+	private IProductoService productoService;
+	
+	@Autowired
+	private IConsumoService consumoService;
 	
 	@Test
-	public void getAllHabitacionesAPI() throws Exception{
+	public void getAllConsumosAPI() throws Exception{
 		
 	  mvc.perform( MockMvcRequestBuilders
-	      .get("/habitacion/lista")
+	      .get("/consumo/lista")
 	      .accept(MediaType.APPLICATION_JSON))
 	      .andDo(print())
 	      .andExpect(status().isOk())
@@ -44,75 +56,60 @@ public class TestHabitacionController {
 	}
 	 
 	@Test
-	public void getHabitacionByIdAPI() throws Exception{
+	public void getConsumoByIdAPI() throws Exception{
 	  mvc.perform( MockMvcRequestBuilders
-	      .get("/habitacion/{id}", 2)
+	      .get("/consumo/{id}", 1)
 	      .accept(MediaType.APPLICATION_JSON))
 	      .andDo(print())
 	      .andExpect(status().isOk())
-	      .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(2));
+	      .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(1));
 	}
 	
 	@Test
-	public void cearHabitacionAPI() throws Exception{
+	public void cearConsumo() throws Exception{
 		
-		HabitacionDTO habitacion = new HabitacionDTO();
-		habitacion.setPiso(2);
-		habitacion.setNumero(12);
-		habitacion.setVista("al mar");
-		habitacion.setClase("primera");
-		habitacion.setCamas(2);
-		habitacion.setPrecio(130);
-		habitacion.setPersonas(2);
-		habitacion.setEstado("libre");
+		ConsumoDTO consumo = new ConsumoDTO();
 		
-		HotelDTO hotel = hotelService.findById(1);
+		ReservaDTO reserva = reservaService.findById(37);
 		
-		habitacion.setHotel(hotel);
+		
+		ProductoDTO producto = productoService.findProductoById(2);
+		
+		consumo.setReserva(reserva);
+		consumo.setProducto(producto);
+		consumo.setCantidad(2);
+		consumo.setPrecio(71);
+		
+		log.info(consumo.toString());
+		
 		
 	  mvc.perform( MockMvcRequestBuilders
-	      .post("/habitacion")
-	      .content(asJsonString(habitacion))
-	      .contentType(MediaType.APPLICATION_JSON)
-	      .accept(MediaType.APPLICATION_JSON))
+	      .post("/consumo")
+	      .content(asJsonString(consumo))
+	      .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)
+	      .accept(MediaType.APPLICATION_JSON_UTF8_VALUE))
 	      .andExpect(status().isCreated());
 	}
 	
 	@Test
-	public void updateHabitacionAPI() throws Exception{
+	public void updateConsumoPI() throws Exception{
 		
-		HabitacionDTO habitacion = new HabitacionDTO();
-		habitacion.setId(2);
-		habitacion.setPiso(2);
-		habitacion.setNumero(12);
-		habitacion.setVista("al mar");
-		habitacion.setClase("primera");
-		habitacion.setCamas(2);
-		habitacion.setPrecio(130);
-		habitacion.setPersonas(2);
-		habitacion.setEstado("libre");
-		
-		HotelDTO hotel = new HotelDTO();
-		hotel.setId(1);
-		hotel.setNombre("Gran Meliá Palacio de los Duques");
-		hotel.setCategoria("4 estrellas");
-		hotel.setDireccion("Cuesta de Santo Domingo 5 y 7");
-		hotel.setZona("Centro");
-		
-		habitacion.setHotel(hotel);
+		ConsumoDTO consumo = consumoService.findById(5);
+		consumo.setCantidad(3);
+		consumo.setPrecio(consumo.getProducto().getPrecio()*3);
 		
 	  mvc.perform( MockMvcRequestBuilders
-	      .put("/habitacion")
-	      .content(asJsonString(habitacion))
+	      .put("/consumo")
+	      .content(asJsonString(consumo))
 	      .contentType(MediaType.APPLICATION_JSON)
 	      .accept(MediaType.APPLICATION_JSON))
 	      .andExpect(status().isOk());
 	}
 	 
 	@Test
-	public void deleteHabitacionAPI() throws Exception
+	public void deleteConsumoAPI() throws Exception
 	{
-	  mvc.perform( MockMvcRequestBuilders.delete("/habitacion/{id}", 152) )
+	  mvc.perform( MockMvcRequestBuilders.delete("/consumo/{id}", 6) )
 	        .andExpect(status().isAccepted());
 	}
 	

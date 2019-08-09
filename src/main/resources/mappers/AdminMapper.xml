@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.capgemini.daos.AdminDAO">
+
+	<resultMap type="com.capgemini.entities.AdminEntity" id="adminResultMap">
+		<id column="adm_id" property="id" jdbcType="INTEGER"/>
+		<result column="adm_username" property="nombre" jdbcType="VARCHAR"/>
+		<result column="adm_passwd" property="passwd" jdbcType="VARCHAR"/>
+		<result column="adm_role" property="role" jdbcType="VARCHAR"/>
+	</resultMap>
+	
+	<select id="findByUsername" resultMap="adminResultMap">
+		SELECT adm_id, adm_username, adm_passwd,adm_role
+		FROM administradores 
+		WHERE adm_username = #{nombre}
+	</select>
+
+</mapper>

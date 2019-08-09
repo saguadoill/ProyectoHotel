@@ -4,9 +4,9 @@
 <mapper namespace="com.capgemini.daos.PagoDAO">
 	<resultMap type="com.capgemini.entities.PagoEntity" id="pagoResultMap">
 		<id column="pag_id" property="id" jdbcType="INTEGER"/>
-		<result column="pag_re_id" property="re_id" jdbcType="VARCHAR"/>
+		<result column="pag_re_id" property="idReserva" jdbcType="INTEGER"/>
 		<result column="pag_total" property="total" jdbcType="FLOAT"/>
-		<result column="pag_fecha_pago" property="fecha_pago" jdbcType="DATE"/>
+		<result column="pag_fecha_pago" property="fechaPago" jdbcType="DATE"/>
 	</resultMap>
 
 	<select id="findAll" resultMap="pagoResultMap">

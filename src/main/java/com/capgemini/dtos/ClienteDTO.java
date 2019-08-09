@@ -5,15 +5,17 @@ import lombok.Data;
 @Data
 public class ClienteDTO {
 	
-	private int cli_id;
-	private String cli_dni;
-	private String cli_nombre;
-	private String cli_apellido;
-	private String cli_email;
-	private String cli_direccion;
-	private String cli_codigopostal;
-	private String cli_ciudad;
-	private int cli_puntos_dto;
+	private int id;
+	private String dni;
+	private String nombre;
+	private String apellido;
+	private String email;
+	private String direccion;
+	private String codigoPostal;
+	private String ciudad;
+	private int puntosDescuento;
+	private String role;
+	private String passwd;
 	
 	//private List<ConsumoDTO> consumo;
 	

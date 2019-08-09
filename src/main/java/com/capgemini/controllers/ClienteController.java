@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.capgemini.dtos.ClienteDTO;
 import com.capgemini.services.impls.IClienteService;
+import com.fasterxml.jackson.core.JsonProcessingException;
 
 
 @RestController
@@ -32,6 +33,18 @@ public class ClienteController {
 	public ResponseEntity<ClienteDTO> buscarCliente(@PathVariable(name = "id") int id){
 		return new ResponseEntity<>(clienteService.findById(id),HttpStatus.OK);
 	}
+	
+	@RequestMapping(value  = "/login/{email}", method = RequestMethod.GET)
+	public ClienteDTO buscarClientePorEmail(@PathVariable(name = "email") String email){
+		ClienteDTO cliente = new ClienteDTO();
+		try {
+			cliente = clienteService.findByLogin(email);
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+		}
+		return cliente;
+	}
+	
 	
 	@RequestMapping(method = RequestMethod.PUT)
 	public ResponseEntity<ClienteDTO> updateCliente(@RequestBody ClienteDTO clienteDTO){

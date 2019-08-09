@@ -37,7 +37,7 @@ public class ConsumoController {
 		HttpStatus respuesta = null;
 		
 		if (consumoService.updateConsumo(consumoDTO)) {
-			respuesta = HttpStatus.CREATED;
+			respuesta = HttpStatus.OK;
 		} else {
 			respuesta = HttpStatus.BAD_REQUEST;
 		}
@@ -65,7 +65,7 @@ public class ConsumoController {
 	HttpStatus respuesta = null;
 		
 		if (consumoService.deleteConsumo(id)) {
-			respuesta = HttpStatus.OK;
+			respuesta = HttpStatus.ACCEPTED;
 		} else {
 			respuesta = HttpStatus.BAD_REQUEST;
 		}

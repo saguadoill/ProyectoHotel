@@ -8,8 +8,8 @@ import lombok.Data;
 public class PagoDTO {
 	
 	private int id;
-	private int re_id;
+	private int idReserva;
 	private float total;
-	private LocalDate fecha_pago;
+	private LocalDate fechaPago;
 	
 }

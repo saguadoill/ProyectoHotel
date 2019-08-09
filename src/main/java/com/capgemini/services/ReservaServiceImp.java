@@ -13,7 +13,10 @@ import com.capgemini.services.impls.IClienteService;
 import com.capgemini.services.impls.IHabitacionService;
 import com.capgemini.services.impls.IReservaService;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Service
+@Slf4j
 public class ReservaServiceImp implements IReservaService {
 	
 	@Autowired
@@ -77,13 +80,15 @@ public class ReservaServiceImp implements IReservaService {
 			boolean addOk = false;
 			
 			ReservaEntity reservaEntity = new ReservaEntity();
-			reservaEntity.setId(reservaDTO.getClienteDTO().getCli_id());
+			reservaEntity.setIdCliente(reservaDTO.getClienteDTO().getId());
 			reservaEntity.setIdHabitacion(reservaDTO.getHabitacionDTO().getId());
 			reservaEntity.setFechaReserva(reservaDTO.getFechaReserva());
 			reservaEntity.setFechaInicio(reservaDTO.getFechaInicio());
 			reservaEntity.setFechaFin(reservaDTO.getFechaFin());
 			reservaEntity.setCosteAlojamiento(costeAlojamiento(reservaDTO));
 			reservaEntity.setEstado(reservaDTO.getEstado());
+			
+			log.info(reservaDTO.toString());
 			
 			if (reservaDao.addReserva(reservaEntity)) {
 				addOk = true;
@@ -97,7 +102,7 @@ public class ReservaServiceImp implements IReservaService {
 			boolean updateOk = false;
 			
 			ReservaEntity reservaEntity = new ReservaEntity();
-			reservaEntity.setId(reservaDTO.getClienteDTO().getCli_id());
+			reservaEntity.setId(reservaDTO.getClienteDTO().getId());
 			reservaEntity.setIdHabitacion(reservaDTO.getHabitacionDTO().getId());
 			reservaEntity.setFechaReserva(reservaDTO.getFechaReserva());
 			reservaEntity.setFechaInicio(reservaDTO.getFechaInicio());

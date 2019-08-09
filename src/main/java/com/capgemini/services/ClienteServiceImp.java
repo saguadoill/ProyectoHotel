@@ -10,6 +10,8 @@ import com.capgemini.daos.ClienteDAO;
 import com.capgemini.dtos.ClienteDTO;
 import com.capgemini.entities.ClienteEntity;
 import com.capgemini.services.impls.IClienteService;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Service
 public class ClienteServiceImp implements IClienteService {
@@ -25,15 +27,17 @@ public class ClienteServiceImp implements IClienteService {
 		
 		for (ClienteEntity cliente : listaClientesEntity) {
 			ClienteDTO clienteDTO = new ClienteDTO();
-			clienteDTO.setCli_id(cliente.getCli_id());
-			clienteDTO.setCli_dni(cliente.getCli_dni());
-			clienteDTO.setCli_nombre(cliente.getCli_nombre());
-			clienteDTO.setCli_apellido(cliente.getCli_apellido());
-			clienteDTO.setCli_email(cliente.getCli_email());
-			clienteDTO.setCli_direccion(cliente.getCli_direccion());
-			clienteDTO.setCli_codigopostal(cliente.getCli_codigopostal());
-			clienteDTO.setCli_ciudad(cliente.getCli_ciudad());
-			clienteDTO.setCli_puntos_dto(cliente.getCli_puntos_dto());
+			clienteDTO.setId(cliente.getId());
+			clienteDTO.setDni(cliente.getDni());
+			clienteDTO.setNombre(cliente.getNombre());
+			clienteDTO.setApellido(cliente.getApellido());
+			clienteDTO.setEmail(cliente.getEmail());
+			clienteDTO.setDireccion(cliente.getDireccion());
+			clienteDTO.setCodigoPostal(cliente.getCodigoPostal());
+			clienteDTO.setCiudad(cliente.getCiudad());
+			clienteDTO.setPuntosDescuento(cliente.getPuntosDescuento());
+			clienteDTO.setPasswd(cliente.getPassword());
+			clienteDTO.setRole(cliente.getRole());
 			
 			// Añadir consumo
 			
@@ -50,18 +54,40 @@ public class ClienteServiceImp implements IClienteService {
 		ClienteDTO clienteDTO = new ClienteDTO();
 		ClienteEntity clienteEntity = clienteDao.findById(id);
 		
-		clienteDTO.setCli_id(clienteEntity.getCli_id());
-		clienteDTO.setCli_dni(clienteEntity.getCli_dni());
-		clienteDTO.setCli_nombre(clienteEntity.getCli_nombre());
-		clienteDTO.setCli_apellido(clienteEntity.getCli_apellido());
-		clienteDTO.setCli_email(clienteEntity.getCli_email());
-		clienteDTO.setCli_direccion(clienteEntity.getCli_direccion());
-		clienteDTO.setCli_codigopostal(clienteEntity.getCli_codigopostal());
-		clienteDTO.setCli_ciudad(clienteEntity.getCli_ciudad());
-		clienteDTO.setCli_puntos_dto(clienteEntity.getCli_puntos_dto());
+		clienteDTO.setId(clienteEntity.getId());
+		clienteDTO.setDni(clienteEntity.getDni());
+		clienteDTO.setNombre(clienteEntity.getNombre());
+		clienteDTO.setApellido(clienteEntity.getApellido());
+		clienteDTO.setEmail(clienteEntity.getEmail());
+		clienteDTO.setDireccion(clienteEntity.getDireccion());
+		clienteDTO.setCodigoPostal(clienteEntity.getCodigoPostal());
+		clienteDTO.setCiudad(clienteEntity.getCiudad());
+		clienteDTO.setPuntosDescuento(clienteEntity.getPuntosDescuento());
+		clienteDTO.setPasswd(clienteEntity.getPassword());
+		clienteDTO.setRole(clienteEntity.getRole());
 		
 		return clienteDTO;
 		
+	}
+	
+	@Override
+	public ClienteDTO findByLogin(String email) throws JsonProcessingException {
+		ClienteDTO clienteDTO = new ClienteDTO();
+		ClienteEntity clienteEntity = clienteDao.findByEmail(email);
+		
+		clienteDTO.setId(clienteEntity.getId());
+		clienteDTO.setDni(clienteEntity.getDni());
+		clienteDTO.setNombre(clienteEntity.getNombre());
+		clienteDTO.setApellido(clienteEntity.getApellido());
+		clienteDTO.setEmail(clienteEntity.getEmail());
+		clienteDTO.setDireccion(clienteEntity.getDireccion());
+		clienteDTO.setCodigoPostal(clienteEntity.getCodigoPostal());
+		clienteDTO.setCiudad(clienteEntity.getCiudad());
+		clienteDTO.setPuntosDescuento(clienteEntity.getPuntosDescuento());
+		clienteDTO.setPasswd(clienteEntity.getPassword());
+		clienteDTO.setRole(clienteEntity.getRole());
+	
+		return clienteDTO;
 	}
 
 	@Override
@@ -70,15 +96,17 @@ public class ClienteServiceImp implements IClienteService {
 		boolean addOk = false;
 		
 		ClienteEntity clienteEntity = new ClienteEntity();
-		clienteEntity.setCli_id(clienteDTO.getCli_id());
-		clienteEntity.setCli_dni(clienteDTO.getCli_dni());
-		clienteEntity.setCli_nombre(clienteDTO.getCli_nombre());
-		clienteEntity.setCli_apellido(clienteDTO.getCli_apellido());
-		clienteEntity.setCli_email(clienteDTO.getCli_email());
-		clienteEntity.setCli_direccion(clienteDTO.getCli_direccion());
-		clienteEntity.setCli_codigopostal(clienteDTO.getCli_codigopostal());
-		clienteEntity.setCli_ciudad(clienteDTO.getCli_ciudad());
-		clienteEntity.setCli_puntos_dto(clienteDTO.getCli_puntos_dto());
+		clienteEntity.setId(clienteDTO.getId());
+		clienteEntity.setDni(clienteDTO.getDni());
+		clienteEntity.setNombre(clienteDTO.getNombre());
+		clienteEntity.setApellido(clienteDTO.getApellido());
+		clienteEntity.setEmail(clienteDTO.getEmail());
+		clienteEntity.setDireccion(clienteDTO.getDireccion());
+		clienteEntity.setCodigoPostal(clienteDTO.getCodigoPostal());
+		clienteEntity.setCiudad(clienteDTO.getCiudad());
+		clienteEntity.setPuntosDescuento(clienteDTO.getPuntosDescuento());
+		clienteEntity.setPassword(clienteDTO.getPasswd());
+		clienteEntity.setRole(clienteDTO.getRole());
 		
 		if (clienteDao.addCliente(clienteEntity)) {
 			addOk = true;
@@ -94,15 +122,17 @@ public class ClienteServiceImp implements IClienteService {
 		boolean updateOk = false;
 		
 		ClienteEntity clienteEntity = new ClienteEntity();
-		clienteEntity.setCli_id(clienteDTO.getCli_id());
-		clienteEntity.setCli_dni(clienteDTO.getCli_dni());
-		clienteEntity.setCli_nombre(clienteDTO.getCli_nombre());
-		clienteEntity.setCli_apellido(clienteDTO.getCli_apellido());
-		clienteEntity.setCli_email(clienteDTO.getCli_email());
-		clienteEntity.setCli_direccion(clienteDTO.getCli_direccion());
-		clienteEntity.setCli_codigopostal(clienteDTO.getCli_codigopostal());
-		clienteEntity.setCli_ciudad(clienteDTO.getCli_ciudad());
-		clienteEntity.setCli_puntos_dto(clienteDTO.getCli_puntos_dto());
+		clienteEntity.setId(clienteDTO.getId());
+		clienteEntity.setDni(clienteDTO.getDni());
+		clienteEntity.setNombre(clienteDTO.getNombre());
+		clienteEntity.setApellido(clienteDTO.getApellido());
+		clienteEntity.setEmail(clienteDTO.getEmail());
+		clienteEntity.setDireccion(clienteDTO.getDireccion());
+		clienteEntity.setCodigoPostal(clienteDTO.getCodigoPostal());
+		clienteEntity.setCiudad(clienteDTO.getCiudad());
+		clienteEntity.setPuntosDescuento(clienteDTO.getPuntosDescuento());
+		clienteEntity.setPassword(clienteDTO.getPasswd());
+		clienteEntity.setRole(clienteDTO.getRole());
 		
 		if (clienteDao.updateCliente(clienteEntity)) {
 			updateOk = true;

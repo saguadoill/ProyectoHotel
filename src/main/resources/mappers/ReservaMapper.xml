@@ -28,17 +28,17 @@
 	
 	<insert id="addReserva" parameterType="ReservaEntity">
 		INSERT INTO reservas (re_cli_id, re_ha_id, re_fecha_reserva, re_fecha_ini, re_fecha_fin, re_coste_alojamiento, re_estado) 
-		values(#{cli_id},#{ha_id},#{fecha_reserva},#{fecha_ini},#{fecha_fin},#{coste_alojamiento},#{estado})
+		values(#{idCliente},#{idHabitacion},#{fechaReserva},#{fechaInicio},#{fechaFin},#{costeAlojamiento},#{estado})
 	</insert>
 	
 	<update id="updateReserva" parameterType="ReservaEntity">
 		UPDATE reservas SET 
-			re_cli_id = #{cli_id},
-			re_ha_id = #{ha_id},
-			re_fecha_reserva = #{fecha_reserva},
-			re_fecha_ini = #{fecha_ini},
-			re_fecha_fin = #{fecha_fin},
-			re_coste_alojamiento = #{coste_alojamiento},
+			re_cli_id = #{idCliente},
+			re_ha_id = #{idHabitacion},
+			re_fecha_reserva = #{fechaReserva},
+			re_fecha_ini = #{fechaInicio},
+			re_fecha_fin = #{fechaFin},
+			re_coste_alojamiento = #{costeAlojamiento},
 			re_estado = #{estado},
 			WHERE re_id = #{id}
 	</update>

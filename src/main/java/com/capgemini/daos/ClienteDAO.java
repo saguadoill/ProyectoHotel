@@ -2,6 +2,7 @@ package com.capgemini.daos;
 
 import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
+
 import com.capgemini.entities.ClienteEntity;
 
 @Mapper
@@ -10,6 +11,8 @@ public interface ClienteDAO {
 	List<ClienteEntity> findAll();
 	
 	ClienteEntity findById(int id);
+	
+	ClienteEntity findByEmail(String email);
 	
 	boolean addCliente(ClienteEntity cliente);
 	
