@@ -9,6 +9,7 @@
 		<result column="ho_categoria" property="categoria" jdbcType="VARCHAR"/>
 		<result column="ho_zona" property="zona" jdbcType="VARCHAR"/>
 		<result column="ho_direccion" property="direccion" jdbcType="VARCHAR"/>
+		<result column="ho_imagen" property="imagenUrl" jdbcType="VARCHAR"/>
 	</resultMap>
 
 	<select id="findAll" resultMap="hotelResultMap">
@@ -20,8 +21,8 @@
 	</select>
 	
 	<insert id="addHotel" parameterType="HotelEntity">
-		INSERT INTO hoteles (ho_nombre,ho_categoria,ho_zona,ho_direccion) 
-		values(#{nombre},#{categoria},#{zona},#{direccion})
+		INSERT INTO hoteles (ho_nombre,ho_categoria,ho_zona,ho_direccion,ho_imagen) 
+		values(#{nombre},#{categoria},#{zona},#{direccion},#{imagenUrl})
 	</insert>
 	
 	<update id="updateHotel" parameterType="HotelEntity">
@@ -29,7 +30,8 @@
 			ho_nombre = #{nombre},
 			ho_categoria = #{categoria},
 			ho_zona = #{zona},
-			ho_direccion = #{direccion}
+			ho_direccion = #{direccion},
+			ho_imagen = #{imagenUrl}
 			WHERE ho_id = #{id}
 	</update>
 	
