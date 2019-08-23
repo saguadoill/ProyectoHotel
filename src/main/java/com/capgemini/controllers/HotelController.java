@@ -21,7 +21,6 @@ import com.capgemini.services.impls.IHotelService;
 @RequestMapping("/hotel")
 public class HotelController {
 	
-	
 	@Autowired
 	IHotelService iHoteleService;
 
@@ -29,7 +28,6 @@ public class HotelController {
 	public ResponseEntity<List<HotelDTO>> listaHoteles(){
 		return new ResponseEntity<>(iHoteleService.findAll(),HttpStatus.OK);
 	}
-	
 	
 	@RequestMapping(value  = "/{id}", method = RequestMethod.GET)
 	public ResponseEntity<HotelDTO> buscarHotel(@PathVariable(name = "id") int id){
@@ -50,13 +48,13 @@ public class HotelController {
 	}
 	
 	//TODO: decidir si es mejor enviar el id por formulario o url
-	@RequestMapping(value  = "/{id}",method = RequestMethod.DELETE)
+	@RequestMapping(value  = "/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<HttpStatus> deleteHotel(@PathVariable(name = "id") int id){
 	HttpStatus respuesta = null;
 		
 		if (iHoteleService.deleteHotel(id)) {
 			respuesta = HttpStatus.OK;
-		}else {
+		} else {
 			respuesta = HttpStatus.BAD_REQUEST;
 		}
 		

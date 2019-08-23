@@ -36,7 +36,7 @@
 	
 	<insert id="addCliente" parameterType="ClienteEntity">
 		INSERT INTO clientes (cli_dni, cli_nombre, cli_apellido, cli_email, cli_direccion, cli_codigopostal, cli_ciudad, cli_password, cli_puntos_dto, cli_role) 
-		values(#{dni},#{nombre},#{apellido},#{email},#{direccion},#{codigoPostal},#{ciudad},#{puntosDescuento},#{password},#{role})
+		values(#{dni},#{nombre},#{apellido},#{email},#{direccion},#{codigoPostal},#{ciudad},#{password},#{puntosDescuento},#{role})
 	</insert>
 	
 	<update id="updateCliente" parameterType="ClienteEntity">

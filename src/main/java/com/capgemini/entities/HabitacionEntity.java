@@ -15,6 +15,7 @@ public class HabitacionEntity {
 	private int personas;
 	private String estado;
 	private int idHotel;
+	private String imagenUrl;
 	
 	
 }

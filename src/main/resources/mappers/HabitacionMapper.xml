@@ -14,11 +14,25 @@
 		<result column="ha_personas" property="personas" jdbcType="INTEGER"/>
 		<result column="ha_estado" property="estado" jdbcType="VARCHAR"/>
 		<result column="ha_ho_id" property="idHotel" jdbcType="INTEGER"/>
+		<result column="ha_imagen" property="imagenUrl" jdbcType="VARCHAR"/>
 	</resultMap>
 	
-	
+
 	<select id="findAll" resultMap="habitacionResultMap">
 		SELECT * FROM habitaciones
+	</select>
+	
+	<select id="findAllHabitacionesByHotelId" resultMap="habitacionResultMap">
+		SELECT * FROM habitaciones WHERE ha_ho_id = #{idHotel}
+	</select>
+	
+	<select id="findHabitacionesDisponiblesHotel" resultMap="habitacionResultMap" parameterType="map">
+		SELECT * FROM habitaciones
+		INNER JOIN hoteles ON (ho_id = ha_ho_id) 
+        WHERE ha_id NOT IN (SELECT re_ha_id
+		FROM reservas 
+		WHERE (re_fecha_fin BETWEEN #{fechaInicio} AND #{fechaFin}) 
+		OR (re_fecha_ini BETWEEN #{fechaInicio} AND #{fechaFin})) AND ho_id = #{idHotel}
 	</select>
 	
 	<select id="findHabitacionById" resultMap="habitacionResultMap">

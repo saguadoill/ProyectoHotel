@@ -13,11 +13,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.capgemini.dtos.HabitacionDTO;
-import com.capgemini.dtos.HotelDTO;
-import com.capgemini.services.impls.IHotelService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @RunWith(SpringRunner.class)
@@ -27,9 +24,6 @@ public class TestHabitacionController {
 	
 	@Autowired
 	private MockMvc mvc;
-	
-	@Autowired
-	private IHotelService hotelService;
 	
 	@Test
 	public void getAllHabitacionesAPI() throws Exception{
@@ -54,7 +48,7 @@ public class TestHabitacionController {
 	}
 	
 	@Test
-	public void cearHabitacionAPI() throws Exception{
+	public void crearHabitacionAPI() throws Exception{
 		
 		HabitacionDTO habitacion = new HabitacionDTO();
 		habitacion.setPiso(2);
@@ -65,10 +59,7 @@ public class TestHabitacionController {
 		habitacion.setPrecio(130);
 		habitacion.setPersonas(2);
 		habitacion.setEstado("libre");
-		
-		HotelDTO hotel = hotelService.findById(1);
-		
-		habitacion.setHotel(hotel);
+		habitacion.setIdHotel(1);
 		
 	  mvc.perform( MockMvcRequestBuilders
 	      .post("/habitacion")
@@ -91,15 +82,7 @@ public class TestHabitacionController {
 		habitacion.setPrecio(130);
 		habitacion.setPersonas(2);
 		habitacion.setEstado("libre");
-		
-		HotelDTO hotel = new HotelDTO();
-		hotel.setId(1);
-		hotel.setNombre("Gran Meliá Palacio de los Duques");
-		hotel.setCategoria("4 estrellas");
-		hotel.setDireccion("Cuesta de Santo Domingo 5 y 7");
-		hotel.setZona("Centro");
-		
-		habitacion.setHotel(hotel);
+		habitacion.setIdHotel(2);
 		
 	  mvc.perform( MockMvcRequestBuilders
 	      .put("/habitacion")

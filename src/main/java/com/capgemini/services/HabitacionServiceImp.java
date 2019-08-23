@@ -1,5 +1,6 @@
 package com.capgemini.services;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,9 +21,13 @@ public class HabitacionServiceImp implements IHabitacionService {
 
 	@Autowired
 	IHotelService hotelService;
+	
+	@Autowired
+	ImagenServiceImp imagenServiceImp;
 
 	@Override
 	public List<HabitacionDTO> findAll() {
+		
 		List<HabitacionEntity> listaHabitacionesEntity = new ArrayList<>();
 		List<HabitacionDTO> listaHabitacionesDto = new ArrayList<>();
 
@@ -40,13 +45,16 @@ public class HabitacionServiceImp implements IHabitacionService {
 			habitacionDto.setPrecio(habitacion.getPrecio());
 			habitacionDto.setPersonas(habitacion.getPersonas());
 			habitacionDto.setEstado(habitacion.getEstado());
-			habitacionDto.setHotel(hotelService.findById(habitacion.getIdHotel()));
+			habitacionDto.setIdHotel(habitacion.getIdHotel());
+			habitacionDto.setImagen(imagenServiceImp.loadImagen(habitacion.getImagenUrl()));
 
 			listaHabitacionesDto.add(habitacionDto);
 		}
 
 		return listaHabitacionesDto;
 	}
+	
+	
 
 	@Override
 	public HabitacionDTO findHabitacionById(int id) {
@@ -62,7 +70,8 @@ public class HabitacionServiceImp implements IHabitacionService {
 		habitacionDto.setPrecio(habitacion.getPrecio());
 		habitacionDto.setPersonas(habitacion.getPersonas());
 		habitacionDto.setEstado(habitacion.getEstado());
-		habitacionDto.setHotel(hotelService.findById(habitacion.getIdHotel()));
+		habitacionDto.setIdHotel(habitacion.getIdHotel());
+		habitacionDto.setImagen(imagenServiceImp.loadImagen(habitacion.getImagenUrl()));
 
 		return habitacionDto;
 	}
@@ -81,7 +90,7 @@ public class HabitacionServiceImp implements IHabitacionService {
 		habitacionEntity.setPrecio(habitacion.getPrecio());
 		habitacionEntity.setPersonas(habitacion.getPersonas());
 		habitacionEntity.setEstado(habitacion.getEstado());
-		habitacionEntity.setIdHotel(habitacion.getHotel().getId());
+		habitacionEntity.setIdHotel(habitacion.getIdHotel());
 
 		if (habitacionDao.addHabitacion(habitacionEntity)) {
 			addOk = true;
@@ -103,7 +112,7 @@ public class HabitacionServiceImp implements IHabitacionService {
 		habitacionEntity.setPrecio(habitacion.getPrecio());
 		habitacionEntity.setPersonas(habitacion.getPersonas());
 		habitacionEntity.setEstado(habitacion.getEstado());
-		habitacionEntity.setIdHotel(habitacion.getHotel().getId());
+		habitacionEntity.setIdHotel(habitacion.getIdHotel());
 		
 		if (habitacionDao.updateHabitacion(habitacionEntity)) {
 			updateOk = true;
@@ -121,6 +130,70 @@ public class HabitacionServiceImp implements IHabitacionService {
 		}
 
 		return deleteOk;
+	}
+
+
+
+	@Override
+	public List<HabitacionDTO> findAllHabitacionesByHotelId(int id) {
+		
+		List<HabitacionEntity> listaHabitacionesEntity = new ArrayList<>();
+		List<HabitacionDTO> listaHabitaciones = new ArrayList<HabitacionDTO>();
+		
+		listaHabitacionesEntity = habitacionDao.findAllHabitacionesByHotelId(id);
+		
+		for (HabitacionEntity habitacion : listaHabitacionesEntity) {
+			HabitacionDTO habitacionDto = new HabitacionDTO();
+
+			habitacionDto.setId(habitacion.getId());
+			habitacionDto.setPiso(habitacion.getPiso());
+			habitacionDto.setNumero(habitacion.getNumero());
+			habitacionDto.setVista(habitacion.getVista());
+			habitacionDto.setClase(habitacion.getClase());
+			habitacionDto.setCamas(habitacion.getCamas());
+			habitacionDto.setPrecio(habitacion.getPrecio());
+			habitacionDto.setPersonas(habitacion.getPersonas());
+			habitacionDto.setEstado(habitacion.getEstado());
+			habitacionDto.setIdHotel(habitacion.getIdHotel());
+			habitacionDto.setImagen(imagenServiceImp.loadImagen(habitacion.getImagenUrl()));
+
+			listaHabitaciones.add(habitacionDto);
+		}
+		
+		return listaHabitaciones;
+	}
+
+
+
+	@Override
+	public List<HabitacionDTO> findHabitacionesDisponiblesHotel(int idHotel, LocalDate fechaInicio, LocalDate fechaFin) {
+		
+		List<HabitacionEntity> listaHabitacionesEntity = new ArrayList<>();
+		List<HabitacionDTO> listaHabitaciones = new ArrayList<HabitacionDTO>();
+		
+		listaHabitacionesEntity = habitacionDao.findHabitacionesDisponiblesHotel(idHotel, fechaInicio, fechaFin);
+		
+		for (HabitacionEntity habitacion : listaHabitacionesEntity) {
+			HabitacionDTO habitacionDto = new HabitacionDTO();
+
+			habitacionDto.setId(habitacion.getId());
+			habitacionDto.setPiso(habitacion.getPiso());
+			habitacionDto.setNumero(habitacion.getNumero());
+			habitacionDto.setVista(habitacion.getVista());
+			habitacionDto.setClase(habitacion.getClase());
+			habitacionDto.setCamas(habitacion.getCamas());
+			habitacionDto.setPrecio(habitacion.getPrecio());
+			habitacionDto.setPersonas(habitacion.getPersonas());
+			habitacionDto.setEstado(habitacion.getEstado());
+			habitacionDto.setIdHotel(habitacion.getIdHotel());
+			habitacionDto.setImagen(imagenServiceImp.loadImagen(habitacion.getImagenUrl()));
+
+			listaHabitaciones.add(habitacionDto);
+		}
+		
+		return listaHabitaciones;
+		
+		
 	}
 
 }

@@ -1,8 +1,10 @@
 package com.capgemini.daos;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import com.capgemini.entities.HabitacionEntity;
 
@@ -10,6 +12,10 @@ import com.capgemini.entities.HabitacionEntity;
 public interface HabitacionDAO {
 
 	List<HabitacionEntity> findAll();
+	
+	List<HabitacionEntity> findAllHabitacionesByHotelId(int id);
+	
+	List<HabitacionEntity> findHabitacionesDisponiblesHotel(int idHotel, @Param("fechaInicio") LocalDate fechaInicio, @Param("fechaFin") LocalDate fechaFin);
 	
 	HabitacionEntity findHabitacionById(int id);
 	

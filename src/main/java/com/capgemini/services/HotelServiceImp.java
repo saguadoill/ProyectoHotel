@@ -7,6 +7,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.capgemini.daos.HabitacionDAO;
 import com.capgemini.daos.HotelDAO;
 import com.capgemini.dtos.HotelDTO;
 import com.capgemini.entities.HotelEntity;
@@ -22,6 +23,9 @@ public class HotelServiceImp implements IHotelService {
 	HotelDAO hotelDao;
 	
 	@Autowired
+	HabitacionServiceImp habitacionService ;
+	
+	@Autowired
 	ImagenServiceImp imagenServiceImp;
 
 	public List<HotelDTO> findAll() {
@@ -30,14 +34,14 @@ public class HotelServiceImp implements IHotelService {
 
 		listaHotelesEntity = hotelDao.findAll();
 
-		for (HotelEntity hotel : listaHotelesEntity) {
+		for (HotelEntity hotelEntity : listaHotelesEntity) {
 			HotelDTO hotelDTO = new HotelDTO();
-			hotelDTO.setId(hotel.getId());
-			hotelDTO.setNombre(hotel.getNombre());
-			hotelDTO.setCategoria(hotel.getCategoria());
-			hotelDTO.setDireccion(hotel.getDireccion());
-			hotelDTO.setZona(hotel.getZona());
-			hotelDTO.setImagen(imagenServiceImp.loadImagen(hotel.getImagenUrl()));
+			hotelDTO.setId(hotelEntity.getId());
+			hotelDTO.setNombre(hotelEntity.getNombre());
+			hotelDTO.setCategoria(hotelEntity.getCategoria());
+			hotelDTO.setDireccion(hotelEntity.getDireccion());
+			hotelDTO.setZona(hotelEntity.getZona());
+			hotelDTO.setImagen(imagenServiceImp.loadImagen(hotelEntity.getImagenUrl()));
 			listaHotelesDto.add(hotelDTO);
 		}
 
@@ -55,6 +59,7 @@ public class HotelServiceImp implements IHotelService {
 		hotelDTO.setDireccion(hotelEntity.getDireccion());
 		hotelDTO.setZona(hotelEntity.getZona());
 		hotelDTO.setImagen(imagenServiceImp.loadImagen(hotelEntity.getImagenUrl()));
+		hotelDTO.setListaHabitaciones(habitacionService.findAllHabitacionesByHotelId(id));
 
 		return hotelDTO;
 	}

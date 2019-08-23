@@ -11,9 +11,11 @@ import com.capgemini.dtos.ClienteDTO;
 import com.capgemini.entities.ClienteEntity;
 import com.capgemini.services.impls.IClienteService;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
+
+import lombok.extern.slf4j.Slf4j;
 
 @Service
+@Slf4j
 public class ClienteServiceImp implements IClienteService {
 	
 	@Autowired
@@ -94,7 +96,6 @@ public class ClienteServiceImp implements IClienteService {
 	public boolean addCliente(ClienteDTO clienteDTO) {
 		
 		boolean addOk = false;
-		
 		ClienteEntity clienteEntity = new ClienteEntity();
 		clienteEntity.setId(clienteDTO.getId());
 		clienteEntity.setDni(clienteDTO.getDni());
@@ -106,7 +107,7 @@ public class ClienteServiceImp implements IClienteService {
 		clienteEntity.setCiudad(clienteDTO.getCiudad());
 		clienteEntity.setPuntosDescuento(clienteDTO.getPuntosDescuento());
 		clienteEntity.setPassword(clienteDTO.getPasswd());
-		clienteEntity.setRole(clienteDTO.getRole());
+		clienteEntity.setRole("ROLE_USER");
 		
 		if (clienteDao.addCliente(clienteEntity)) {
 			addOk = true;
